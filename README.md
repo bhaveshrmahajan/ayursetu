@@ -1,14 +1,33 @@
 # AyurSetu - Online Doctor Consultation & Pharmacy Platform
 
-A comprehensive microservices-based healthcare platform enabling online doctor consultations, pharmacy services, and appointment management.
+A comprehensive full-stack healthcare platform enabling online doctor consultations, pharmacy services, and appointment management.
 
 ## 🏥 Project Overview
 
 AyurSetu is a full-stack healthcare platform that connects patients with doctors for online consultations, manages pharmacy services, and handles appointment scheduling with secure payment processing.
 
+## 📁 Project Structure
+
+```
+ayursetu/
+├── backend/                 # Backend microservices
+│   ├── User-Service/       # User management microservice
+│   ├── Doctor-Service/     # Doctor management microservice
+│   ├── Pharmacy-Service/   # Pharmacy management microservice
+│   ├── Appointment-Service/ # Appointment booking microservice
+│   ├── Payment-Service/    # Payment processing microservice
+│   ├── API-Gateway/        # Spring Cloud Gateway
+│   └── docker-compose.yml  # Docker orchestration
+├── frontend/               # React.js frontend application
+│   ├── src/
+│   ├── public/
+│   └── package.json
+└── README.md              # This file
+```
+
 ## 🏗️ Architecture
 
-### Microservices Architecture
+### Backend (Microservices)
 - **User Service** - User management, authentication, and profile management
 - **Doctor Service** - Doctor profiles, specializations, availability, and reviews
 - **Pharmacy Service** - Medicine inventory and prescription management
@@ -16,177 +35,103 @@ AyurSetu is a full-stack healthcare platform that connects patients with doctors
 - **Payment Service** - Secure payment processing and transaction management
 - **API Gateway** - Centralized routing, authentication, and rate limiting
 
-### Technology Stack
-- **Backend:** Spring Boot 3.5.4, Spring Security, JPA/Hibernate, Java 17
-- **Database:** MySQL, Redis (caching and rate limiting)
-- **Messaging:** Apache Kafka (event-driven communication)
-- **API Gateway:** Spring Cloud Gateway
-- **Frontend:** React.js, Material-UI, Redux
-- **Containerization:** Docker, Docker Compose
-- **Authentication:** JWT (JSON Web Tokens)
+### Frontend
+- **React.js Application** - Modern, responsive user interface
+- **Material-UI Components** - Professional design system
+- **Redux State Management** - Centralized state management
+- **Real-time Features** - Live appointment booking and notifications
 
-## 🚀 Features
+## 🛠️ Technology Stack
 
-### Core Features
-- User registration and authentication with JWT
-- Doctor profile management and specialization handling
-- Real-time appointment booking and scheduling
-- Pharmacy inventory management
-- Secure payment processing
-- Review and rating system
-- Role-based access control
+### Backend
+- **Spring Boot 3.5.4** - Microservices framework
+- **Spring Security** - Authentication and authorization
+- **JPA/Hibernate** - Database ORM
+- **MySQL** - Primary database
+- **Redis** - Caching and rate limiting
+- **Apache Kafka** - Event-driven messaging
+- **Spring Cloud Gateway** - API Gateway
+- **Docker** - Containerization
 
-### Technical Features
-- Microservices architecture with service discovery
-- Event-driven communication using Kafka
-- Circuit breaker pattern for fault tolerance
-- Redis-based rate limiting and caching
-- Comprehensive testing suite
-- Docker containerization
-- API Gateway with centralized security
+### Frontend
+- **React.js** - Frontend framework
+- **Material-UI** - UI component library
+- **Redux** - State management
+- **Axios** - HTTP client
+- **React Router** - Client-side routing
 
-## 📁 Project Structure
+## 🚀 Quick Start
 
-```
-AyurSetu Backend/
-├── User-Service/           # User management microservice
-├── Doctor-Service/         # Doctor management microservice
-├── Pharmacy-Service/       # Pharmacy management microservice
-├── Appointment-Service/    # Appointment booking microservice
-├── Payment-Service/        # Payment processing microservice
-├── API-Gateway/           # Spring Cloud Gateway
-└── docker-compose.yml     # Docker orchestration
-```
-
-## 🛠️ Prerequisites
-
-- Java 17 or higher
-- Maven 3.6+
+### Prerequisites
+- Java 17+
+- Node.js 16+
+- Docker and Docker Compose
 - MySQL 8.0+
 - Redis 6.0+
-- Apache Kafka 2.8+
-- Docker and Docker Compose
-- Node.js 16+ (for frontend)
 
-## 🔧 Setup Instructions
-
-### 1. Clone the Repository
+### Backend Setup
 ```bash
-git clone <repository-url>
-cd AyurSetu-Backend
+cd backend
+docker-compose up -d
 ```
 
-### 2. Database Setup
+### Frontend Setup
 ```bash
-# Start MySQL and Redis using Docker
-docker-compose up -d mysql redis kafka
+cd frontend
+npm install
+npm start
 ```
 
-### 3. Build and Run Services
-```bash
-# Build all services
-mvn clean install
+## 📚 Documentation
 
-# Run individual services
-cd User-Service && mvn spring-boot:run
-cd Doctor-Service && mvn spring-boot:run
-# ... repeat for other services
-```
+- [Backend Documentation](./backend/README.md)
+- [Frontend Documentation](./frontend/README.md)
+- [API Documentation](./backend/API-Gateway/README.md)
 
-### 4. Using Docker Compose
-```bash
-# Build and run all services
-docker-compose up --build
-```
-
-## 📚 API Documentation
-
-### User Service (Port: 8081)
-- `POST /api/users/register` - User registration
-- `POST /api/users/login` - User authentication
-- `GET /api/users/profile` - Get user profile
-- `PUT /api/users/profile` - Update user profile
-
-### Doctor Service (Port: 8082)
-- `POST /api/doctors/register` - Doctor registration
-- `GET /api/doctors` - Get all doctors
-- `GET /api/doctors/{id}` - Get doctor by ID
-- `GET /api/doctors/specialization/{id}` - Get doctors by specialization
-- `POST /api/doctors/{id}/reviews` - Add doctor review
-
-### API Gateway (Port: 8080)
-- All services are accessible through the gateway
-- Rate limiting and authentication are handled centrally
-
-## 🧪 Testing
-
-### Running Tests
-```bash
-# Unit tests
-mvn test
-
-# Integration tests
-mvn verify
-
-# End-to-end tests
-mvn spring-boot:run -Dspring.profiles.active=test
-```
-
-## 🔐 Security
+## 🔐 Security Features
 
 - JWT-based authentication
 - Role-based access control (USER, DOCTOR, ADMIN)
-- Password encryption using BCrypt
 - API rate limiting
+- Secure payment processing
 - CORS configuration
 
-## 📊 Monitoring
+## 🧪 Testing
 
-- Application metrics using Spring Boot Actuator
-- Centralized logging
-- Health check endpoints
-- Circuit breaker monitoring
+- Unit tests for all microservices
+- Integration tests
+- End-to-end testing
+- Frontend component testing
 
 ## 🚀 Deployment
 
-### Docker Deployment
-```bash
-# Build Docker images
-docker-compose build
-
-# Deploy to production
-docker-compose -f docker-compose.prod.yml up -d
-```
-
-### Kubernetes Deployment
-```bash
-# Apply Kubernetes manifests
-kubectl apply -f k8s/
-```
+- Docker containerization
+- Kubernetes ready
+- CI/CD pipeline support
+- Environment-specific configurations
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Make your changes
+4. Add tests
+5. Submit a pull request
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## 👥 Team
 
-- **Backend Development:** [Your Name]
-- **Frontend Development:** [Your Name]
+- **Full-Stack Development:** [Your Name]
 - **DevOps:** [Your Name]
 
 ## 📞 Support
 
 For support and questions, please contact:
 - Email: [your-email@example.com]
-- GitHub Issues: [Create an issue](https://github.com/yourusername/ayursetu-backend/issues)
+- GitHub Issues: [Create an issue](https://github.com/bhaveshrmahajan/ayursetu/issues)
 
 ---
 
