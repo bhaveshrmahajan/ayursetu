@@ -1,0 +1,13 @@
+package com.userservice.services;
+
+import com.userservice.dto.RegisterDto;
+import com.userservice.entities.User;
+
+public interface UserServices {
+
+	 public RegisterDto registerUser(RegisterDto registerDto, String rawPassword);
+	 
+	 public User authenticate(String username, String rawPassword);
+	 
+	 public RegisterDto getUserByEmail(String email);
+}

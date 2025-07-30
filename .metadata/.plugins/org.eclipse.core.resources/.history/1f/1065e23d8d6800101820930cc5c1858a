@@ -1,0 +1,60 @@
+package com.userservice.services;
+
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.userservice.dto.RegisterDto;
+import com.userservice.entities.User;
+import com.userservice.exception.EmailAlreadyExistsException;
+import com.userservice.exception.ResourceNotFoundException;
+import com.userservice.repository.UserRepository;
+
+@Service
+public class UserServiceImple implements UserServices {
+
+	@Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ModelMapper modelMapper;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    
+	@Override
+	public RegisterDto registerUser(RegisterDto registerDto, String rawPassword) {
+		Optional<User> existingUser = userRepository.findByEmail(registerDto.getEmail());
+
+	    if (existingUser.isPresent()) {
+	        throw new EmailAlreadyExistsException("Email already registered: " + registerDto.getEmail());
+	    }
+
+		
+		User user = modelMapper.map(registerDto, User.class);
+	        user.setPassword(passwordEncoder.encode(rawPassword));
+	        user = userRepository.save(user);
+	        return modelMapper.map(user, RegisterDto.class);
+	}
+	 
+
+	@Override
+	public User authenticate(String email, String rawPassword) {
+		 Optional<User> userOpt = userRepository.findByEmail(email);
+	        if (userOpt.isPresent() && passwordEncoder.matches(rawPassword, userOpt.get().getPassword())) {
+	            return userOpt.get();
+	        }
+	        throw new ResourceNotFoundException("Invalid username or password");
+	}
+
+	@Override
+	public RegisterDto getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+            return modelMapper.map(user, RegisterDto.class);
+        }
+	}
+
+

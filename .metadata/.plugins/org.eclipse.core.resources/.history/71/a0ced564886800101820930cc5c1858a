@@ -1,0 +1,48 @@
+package com.userservice.services;
+
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.userservice.dto.RegisterDto;
+import com.userservice.entities.User;
+import com.userservice.repository.UserRepository;
+
+@Service
+public class UserServiceImple implements UserServices {
+
+	@Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ModelMapper modelMapper;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    
+	@Override
+	public RegisterDto registerUser(RegisterDto registerDto, String rawPassword) {
+		 User user = modelMapper.map(registerDto, User.class);
+	        user.setPassword(passwordEncoder.encode(rawPassword));
+	        user = userRepository.save(user);
+	        return modelMapper.map(user, RegisterDto.class);
+	}
+
+	@Override
+	public User authenticate(String email, String rawPassword) {
+		 Optional<User> userOpt = userRepository.findByEmail(email);
+	        if (userOpt.isPresent() && passwordEncoder.matches(rawPassword, userOpt.get().getPassword())) {
+	            return userOpt.get();
+	        }
+	        throw new RuntimeException("Invalid username or password");
+	}
+
+	@Override
+	public RegisterDto getUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

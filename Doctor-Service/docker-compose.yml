@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  mysql-doctor:
+    image: mysql:8.0
+    container_name: ayursetu-mysql-doctor
+    environment:
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: doctordb
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_doctor_data:/var/lib/mysql
+    networks:
+      - ayursetu-network
+
+  doctor-service:
+    build: .
+    container_name: ayursetu-doctor-service
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      - mysql-doctor
+    networks:
+      - ayursetu-network
+
+volumes:
+  mysql_doctor_data:
+
+networks:
+  ayursetu-network:
+    external: true 
