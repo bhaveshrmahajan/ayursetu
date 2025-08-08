@@ -1,0 +1,67 @@
+spring:
+  application:
+    name: user-service
+
+  datasource:
+    url: jdbc:mysql://mysql:3306/userdb
+    username: root
+    password: root1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false  # Disabled for better performance
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+
+  # Email Configuration
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: bhaveshrmahajan121@gmail.com  # Replace with your Gmail
+    password: "xejq ctmy intc bney"     # Replace with your Gmail app password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          timeout: 10000  # 10 second timeout
+          connectiontimeout: 10000
+
+server:
+  port: 8081
+  tomcat:
+    threads:
+      max: 200
+      min-spare: 10
+    connection-timeout: 20000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    appname: user-service
+
+# Enable async processing
+logging:
+  level:
+    com.userservice: INFO
+    org.springframework.mail: WARN

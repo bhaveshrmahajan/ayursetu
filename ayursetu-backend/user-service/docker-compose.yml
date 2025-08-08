@@ -1,0 +1,49 @@
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: ayursetu-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: userdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user123
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - ayursetu-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Spring Boot User Service
+  user-service:
+    build: .
+    container_name: ayursetu-user-service
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/userdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root1234
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+      SPRING_MAIL_USERNAME: bhaveshrmahajan121@gmail.com
+      SPRING_MAIL_PASSWORD: xejq ctmy intc bney
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - ayursetu-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+
+networks:
+  ayursetu-network:
+    driver: bridge 

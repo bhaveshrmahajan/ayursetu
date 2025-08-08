@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: user-service
+
+  datasource:
+    url: jdbc:mysql://mysql:3306/userdb
+    username: root
+    password: root1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        format_sql: false
+
+  # Email Configuration
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: bhaveshrmahajan121@gmail.com
+    password: "xejq ctmy intc bney"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: 8081
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-service:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    appname: user-service
+
+# Logging configuration for Docker
+logging:
+  level:
+    com.userservice: INFO
+    org.springframework: WARN
+    org.hibernate: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n" 
