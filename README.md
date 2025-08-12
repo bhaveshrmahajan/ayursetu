@@ -116,7 +116,7 @@ AyurSetu/
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/bhaveshrmahajan/ayursetu.git
 cd AyurSetu
 ```
 
@@ -297,10 +297,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support & Contact
 
-- **GitHub Issues**: [Create an issue](https://github.com/your-repo/issues)
+- **GitHub Issues**: [Create an issue](https://github.com/bhaveshrmahajan/ayursetu/issues)
 - **Documentation**: Check individual service READMEs
 - **Backend Issues**: See [Backend README](ayursetu-backend/README.md)
 - **Frontend Issues**: See [Frontend README](ayursetu-frontend/README.md)
+- **Contact**: bhaveshrmahajan
 
 ## 🎯 Roadmap
 
@@ -318,6 +319,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - 🔮 AI-powered health recommendations
 - 🔮 Mobile applications (iOS/Android)
 - 🔮 Advanced analytics dashboard
+
+## 🔄 Version History
+
+- **v1.0.0** - Initial release with core microservices
+  - User management
+  - Doctor management
+  - Consultation booking
+  - Pharmacy services
+  - Notification system
 
 ## 🏆 Acknowledgments
 
