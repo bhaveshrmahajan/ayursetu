@@ -5,13 +5,17 @@ import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import lombok.extern.slf4j.Slf4j;
 
 @Configuration
+@Slf4j
 public class GatewayConfig {
 
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
-        return builder.routes()
+        log.info("Building custom routes for API Gateway");
+        
+        RouteLocator routeLocator = builder.routes()
                 // User Service Routes
                 .route("user-service", r -> r
                         .path("/api/users/**")
@@ -71,5 +75,8 @@ public class GatewayConfig {
                         .uri("lb://notification-service"))
                 
                 .build();
+        
+        log.info("Built {} routes for API Gateway", routeLocator.getRoutes().size());
+        return routeLocator;
     }
 }

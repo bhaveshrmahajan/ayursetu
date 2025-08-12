@@ -151,26 +151,26 @@ services:
         condition: service_started
     restart: unless-stopped
 
-  # Payment Service
-  payment-service:
-    build:
-      context: ./payment-service
-      dockerfile: Dockerfile
-    container_name: ayursetu-payment-service
-    ports:
-      - "8085:8085"
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-    networks:
-      - ayursetu-network
-    depends_on:
-      mysql:
-        condition: service_healthy
-      eureka-service:
-        condition: service_started
-      kafka:
-        condition: service_started
-    restart: unless-stopped
+  # Payment Service (temporarily disabled - directory not present)
+  # payment-service:
+  #   build:
+  #     context: ./payment-service
+  #     dockerfile: Dockerfile
+  #   container_name: ayursetu-payment-service
+  #   ports:
+  #     - "8085:8085"
+  #   environment:
+  #     SPRING_PROFILES_ACTIVE: docker
+  #   networks:
+  #     - ayursetu-network
+  #   depends_on:
+  #     mysql:
+  #       condition: service_healthy
+  #     eureka-service:
+  #       condition: service_started
+  #     kafka:
+  #       condition: service_started
+  #   restart: unless-stopped
 
   # Notification Service
   notification-service:

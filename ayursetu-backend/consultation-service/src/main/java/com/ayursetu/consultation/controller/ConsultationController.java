@@ -18,7 +18,6 @@ import java.util.List;
 @RequestMapping("/api/consultations")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "*")
 public class ConsultationController {
     
     private final ConsultationService consultationService;

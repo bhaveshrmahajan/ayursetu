@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping("/api/pharmacy")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "*")
 public class PharmacyController {
     
     private final PharmacyService pharmacyService;

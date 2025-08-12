@@ -54,6 +54,24 @@ public class UserServiceImple implements UserService{
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setEmail(dto.getEmail());
         user.setRole(dto.getRole());
+        
+        // Set additional user details
+        user.setPhone(dto.getPhone());
+        user.setAddress(dto.getAddress());
+        user.setCity(dto.getCity());
+        user.setState(dto.getState());
+        user.setCountry(dto.getCountry());
+        user.setPincode(dto.getPincode());
+        user.setDateOfBirth(dto.getDateOfBirth());
+        user.setGender(dto.getGender());
+        user.setBloodGroup(dto.getBloodGroup());
+        user.setEmergencyContact(dto.getEmergencyContact());
+        
+        // Set default values
+        user.setIsActive(true);
+        user.setIsVerified(false);
+        user.setCreatedAt(java.time.LocalDateTime.now());
+        user.setUpdatedAt(java.time.LocalDateTime.now());
 
         User savedUser = userRepo.save(user);
         
@@ -79,7 +97,7 @@ public class UserServiceImple implements UserService{
             throw new InvalidCredentialsException("Invalid credentials");
         }
 
-        return jwtUtil.generateToken(user.getEmail(), user.getRole().name());
+        return jwtUtil.generateToken(user.getEmail(), user.getRole().name(), user.getId());
     }
 
     @Override

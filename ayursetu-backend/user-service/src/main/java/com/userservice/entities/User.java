@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    @Table(name = "user")
+    @Table(name = "users")
     public class User {
 
         @Id
@@ -32,6 +32,10 @@ import lombok.NoArgsConstructor;
         @Enumerated(EnumType.STRING)
         @NotNull(message = "Role is required")
         private Role role;
+        private String phone;
+        private Integer age;
+        private String gender;
+        private String address;
     }
 
 

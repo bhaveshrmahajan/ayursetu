@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/api/specializations")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "*")
 public class SpecializationController {
     
     private final SpecializationService specializationService;
